@@ -1,9 +1,17 @@
-[bits 32]               ; We're in 32-bit protected mode
-[extern main]           ; Declare that we will be referencing the external symbol 'main'
-                        ; so the linker can substitute the final address
+; kernel_entry.asm
+; ----------------------------------------------------------------------------
+; This file serves as the kernel's entry point after the bootloader switches
+; the CPU to 32-bit protected mode. It calls the main() function defined in your
+; C kernel code. Ensure that your linker script places _start at virtual address 0x1000.
+; ----------------------------------------------------------------------------
 
-global _start           ; Export the _start symbol for the linker
+[bits 32]
+global _start
+extern main
 
+section .text
 _start:
-    call main           ; invoke main() in our C kernel
-    jmp $               ; Hang forever when we return from the kernel
+    call main
+.hang:
+    jmp .hang
+    

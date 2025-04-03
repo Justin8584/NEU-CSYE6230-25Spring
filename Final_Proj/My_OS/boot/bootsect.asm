@@ -65,10 +65,7 @@ BEGIN_PM:
     mov ebx, MSG_PROT_MODE
     call print_string_pm
 
-    ; Jump to the kernel's entry point at 0x1000.
-    call KERNEL_OFFSET
-
-    ; Hang if the kernel ever returns.
+    call KERNEL_OFFSET ; e.g. 0x1000
     jmp $
 
 ; ---------------------------------------------------------------------------
